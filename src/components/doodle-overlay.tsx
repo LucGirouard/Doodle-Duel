@@ -35,7 +35,12 @@ export default function DoodleOverlay() {
 
     resize();
 
-    const drawDoodle = (from: Point, to: Point, width: number, alpha: number) => {
+    const drawDoodle = (
+      from: Point,
+      to: Point,
+      width: number,
+      alpha: number,
+    ) => {
       hueRef.current = (hueRef.current + 2.4) % 360;
       ctx.globalCompositeOperation = "source-over";
       ctx.strokeStyle = `hsla(${hueRef.current}, 94%, 50%, ${alpha})`;
