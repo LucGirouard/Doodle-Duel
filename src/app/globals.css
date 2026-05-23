@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+:root {
+	color-scheme: light;
+}
+
+html {
+	scroll-behavior: smooth;
+	background: #f4ede3;
+}
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	background:
+		radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 35%),
+		radial-gradient(circle at 80% 10%, rgba(167, 139, 250, 0.08), transparent 22%),
+		linear-gradient(180deg, #f7f1e8 0%, #f4ede3 50%, #efe6d9 100%);
+	color: #231b14;
+	font-family: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+::selection {
+	background: rgba(120, 93, 52, 0.22);
+	color: #1f140d;
+}
