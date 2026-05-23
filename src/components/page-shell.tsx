@@ -20,7 +20,7 @@ export default function PageShell({
       <DoodleOverlay />
 
       <div
-        className={`relative z-20 mx-auto flex min-h-[calc(100dvh-2.5rem)] w-full ${maxWidthClass[maxWidth]} items-start justify-center pt-2 sm:pt-4 md:min-h-[calc(100vh-4rem)] md:items-center md:pt-0`}
+        className={`relative z-20 mx-auto flex min-h-[calc(100dvh-2.5rem)] w-full ${maxWidthClass[maxWidth]} items-center justify-center md:min-h-[calc(100vh-4rem)]`}
       >
         {children}
       </div>

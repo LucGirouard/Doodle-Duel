@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 
 const baseClassName =
-  "inline-flex min-h-11 items-center rounded-full border border-amber-800 bg-amber-800 px-6 py-3 text-sm font-semibold text-amber-50 transition duration-200 hover:bg-amber-700";
+  "inline-flex min-h-11 items-center justify-center rounded-full border border-amber-800 bg-amber-800 px-6 py-3 text-sm font-semibold text-amber-50 transition duration-200 hover:bg-amber-700";
 
 type PrimaryLinkButtonProps = {
   href: string;
