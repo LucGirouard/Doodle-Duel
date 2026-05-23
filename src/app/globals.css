@@ -6,18 +6,44 @@
 
 html {
 	scroll-behavior: smooth;
-	background: #f4ede3;
 }
 
 body {
 	min-height: 100vh;
 	margin: 0;
-	background:
+	background-color: #f4ede3;
+	background-image:
+		repeating-linear-gradient(
+			to bottom,
+			rgba(121, 85, 61, 0.08) 0,
+			rgba(121, 85, 61, 0.08) 1px,
+			transparent 1px,
+			transparent 40px
+		),
 		radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 35%),
 		radial-gradient(circle at 80% 10%, rgba(167, 139, 250, 0.08), transparent 22%),
 		linear-gradient(180deg, #f7f1e8 0%, #f4ede3 50%, #efe6d9 100%);
+	background-size: auto, auto, auto, auto;
+	background-attachment: fixed;
 	color: #231b14;
 	font-family: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	background-image: linear-gradient(
+		to right,
+		transparent 0,
+		transparent 72px,
+		rgba(184, 28, 28, 0.16) 72px,
+		rgba(184, 28, 28, 0.16) 74px,
+		transparent 74px
+	);
+	opacity: 0.9;
+	z-index: -1;
 }
 
 * {

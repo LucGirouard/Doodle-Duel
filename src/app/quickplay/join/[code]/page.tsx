@@ -9,15 +9,7 @@ export default async function JoinGamePage({ params }: JoinPageProps) {
   const normalizedCode = code.toUpperCase();
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#f4ede3] px-6 py-8 text-stone-900 sm:px-10 sm:py-10">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(to bottom, rgba(121, 85, 61, 0.08) 0, rgba(121, 85, 61, 0.08) 1px, transparent 1px, transparent 40px), linear-gradient(to right, transparent 0, transparent 72px, rgba(184, 28, 28, 0.16) 72px, rgba(184, 28, 28, 0.16) 74px, transparent 74px)",
-        }}
-      />
+    <main className="relative min-h-screen overflow-hidden px-6 py-8 text-stone-900 sm:px-10 sm:py-10">
       <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-2xl items-center justify-center">
         <section className="w-full rounded-[2.5rem] border border-stone-300/80 bg-[#fffaf1]/95 px-8 py-12 shadow-[0_24px_80px_rgba(80,55,30,0.16)] sm:px-12">
           <p className="text-xs font-semibold uppercase tracking-[0.45em] text-stone-500">

@@ -23,20 +23,7 @@ export default function QuickplayPage() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#f4ede3] px-6 py-8 text-stone-900 sm:px-10 sm:py-10">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(to bottom, rgba(121, 85, 61, 0.08) 0, rgba(121, 85, 61, 0.08) 1px, transparent 1px, transparent 40px), linear-gradient(to right, transparent 0, transparent 72px, rgba(184, 28, 28, 0.16) 72px, rgba(184, 28, 28, 0.16) 74px, transparent 74px)",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.65),transparent_30%)] opacity-80"
-      />
-
+    <main className="relative min-h-screen overflow-hidden px-6 py-8 text-stone-900 sm:px-10 sm:py-10">
       <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-4xl items-center justify-center">
         <section className="w-full rounded-[2.5rem] border border-stone-300/80 bg-[#fffaf1]/95 px-7 py-10 shadow-[0_24px_80px_rgba(80,55,30,0.16)] sm:px-10 sm:py-12">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
