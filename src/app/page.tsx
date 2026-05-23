@@ -1,8 +1,24 @@
+"use client";
+
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const { data: session } = useSession();
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f4ede3] px-6 py-8 text-stone-900 sm:px-10 sm:py-10">
+      {/* Sign In Button - Only show when not logged in, positioned same as UserMenu */}
+      {!session && (
+        <div style={styles.signInWrapper}>
+          <Link
+            href="/login"
+            style={styles.signInButton}
+          >
+            Sign In
+          </Link>
+        </div>
+      )}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -23,12 +39,14 @@ export default function Home() {
               sketching 1v1 game
             </p>
 
-            <h1
-              className="mt-5 text-6xl font-black tracking-tight text-stone-900 sm:text-7xl"
-              style={{ fontFamily: '"Chalkboard SE", "Comic Sans MS", cursive' }}
-            >
-              Art Battle
-            </h1>
+            <Link href="/" className="cursor-pointer">
+              <h1
+                className="mt-5 text-6xl font-black tracking-tight text-stone-900 sm:text-7xl hover:opacity-80 transition-opacity"
+                style={{ fontFamily: '"Chalkboard SE", "Comic Sans MS", cursive' }}
+              >
+                Art Battle
+              </h1>
+            </Link>
 
             <p className="mt-5 max-w-sm text-base leading-7 text-stone-600">
               Intense battles!
@@ -46,4 +64,30 @@ export default function Home() {
     </main>
   );
 }
+
+const styles: Record<string, React.CSSProperties> = {
+  signInWrapper: {
+    position: "fixed",
+    top: "16px",
+    right: "16px",
+    zIndex: 1000,
+  },
+  signInButton: {
+    display: "inline-flex",
+    alignItems: "center",
+    borderRadius: "9999px",
+    border: "1px solid #000",
+    backgroundColor: "#000",
+    paddingLeft: "24px",
+    paddingRight: "24px",
+    paddingTop: "8px",
+    paddingBottom: "8px",
+    fontSize: "14px",
+    fontWeight: "600",
+    color: "#fffaf1",
+    boxShadow: "0 10px 24px rgba(0,0,0,0.3)",
+    transition: "transform 0.2s, background-color 0.2s",
+    textDecoration: "none",
+  },
+};
 
