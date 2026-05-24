@@ -16,33 +16,7 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      var(--rule) 0,
-      var(--rule) 1px,
-      transparent 1px,
-      transparent 38px
-    ),
-    linear-gradient(
-      to right,
-      transparent 0,
-      transparent 72px,
-      var(--margin) 72px,
-      var(--margin) 74px,
-      transparent 74px
-    ),
-    radial-gradient(
-      100% 70% at 5% 5%,
-      rgba(255, 255, 255, 0.76),
-      transparent 52%
-    ),
-    radial-gradient(
-      60% 60% at 95% 15%,
-      rgba(148, 163, 184, 0.08),
-      transparent 72%
-    ),
-    linear-gradient(180deg, #f8f5ef 0%, #f3ece3 52%, #ede3d5 100%);
+  background: linear-gradient(180deg, #f8f5ef 0%, #f3ece3 52%, #ede3d5 100%);
   color: var(--ink);
   font-family:
     "Avenir Next", "Segoe UI Variable Display", "Trebuchet MS", "Segoe UI",

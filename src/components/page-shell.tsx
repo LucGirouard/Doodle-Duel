@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import DoodleOverlay from "@/components/doodle-overlay";
@@ -28,37 +28,17 @@ export default function PageShell({
   showHomeButton,
 }: PageShellProps) {
   const pathname = usePathname();
-  const isHomeLanding = pathname === ROUTES.home && showDoodles;
   const shouldShowHomeButton =
     showHomeButton === undefined ? pathname !== ROUTES.home : showHomeButton;
   const reserveTopRailSpace = showAuthControls || shouldShowHomeButton;
 
-  useEffect(() => {
-    if (!isHomeLanding) return;
-
-    const prevBodyOverflow = document.body.style.overflow;
-    const prevBodyTouchAction = document.body.style.touchAction;
-    const prevHtmlOverflow = document.documentElement.style.overflow;
-    const prevHtmlOverscroll = document.documentElement.style.overscrollBehavior;
-
-    document.body.style.overflow = "hidden";
-    document.body.style.touchAction = "none";
-    document.documentElement.style.overflow = "hidden";
-    document.documentElement.style.overscrollBehavior = "none";
-
-    return () => {
-      document.body.style.overflow = prevBodyOverflow;
-      document.body.style.touchAction = prevBodyTouchAction;
-      document.documentElement.style.overflow = prevHtmlOverflow;
-      document.documentElement.style.overscrollBehavior = prevHtmlOverscroll;
-    };
-  }, [isHomeLanding]);
-
   return (
-    <main
-      className="paper-bg relative min-h-[100dvh] overflow-hidden px-4 py-5 text-slate-900 sm:px-8 sm:py-8 md:px-10 md:py-10"
-    >
-      {showDoodles ? <DoodleOverlay /> : null}
+    <main className="paper-bg relative min-h-screen overflow-hidden px-4 py-5 text-slate-900 sm:px-8 sm:py-8 md:px-10 md:py-10">
+      {showDoodles ? (
+        <div className="hidden sm:block">
+          <DoodleOverlay />
+        </div>
+      ) : null}
       {showAuthControls || shouldShowHomeButton ? (
         <div className="absolute left-4 right-4 top-4 z-30 flex items-start justify-between sm:left-8 sm:right-8 sm:top-6 md:left-10 md:right-10 md:top-8">
           <div className="pointer-events-auto">
@@ -78,13 +58,7 @@ export default function PageShell({
       ) : null}
 
       <div
-        className={`relative z-20 mx-auto flex min-h-[calc(100dvh-2.5rem)] w-full ${maxWidthClass[maxWidth]} items-center justify-center md:min-h-[calc(100vh-4rem)] ${
-          reserveTopRailSpace
-            ? isHomeLanding
-              ? "pt-16 sm:pt-0"
-              : "pt-12 sm:pt-0"
-            : ""
-        }`}
+        className={`relative z-20 mx-auto flex min-h-[calc(100dvh-2.5rem)] w-full ${maxWidthClass[maxWidth]} items-center justify-center md:min-h-[calc(100vh-4rem)] ${reserveTopRailSpace ? "pt-12 sm:pt-0" : ""}`}
       >
         {children}
       </div>

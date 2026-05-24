@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 
 type Point = { x: number; y: number };
-const EDGE_SCROLL_GUTTER_PX = 56;
 
 export default function DoodleOverlay() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -92,45 +91,16 @@ export default function DoodleOverlay() {
 
     const onPointerMove = (event: PointerEvent) => {
       if (coarsePointerRef.current && !drawingRef.current) return;
-      if (coarsePointerRef.current && drawingRef.current && event.pointerType === "touch") {
-        event.preventDefault();
-      }
       setPointer(event.clientX, event.clientY);
     };
 
     const onPointerDown = (event: PointerEvent) => {
-      if (event.pointerType === "mouse" && event.button !== 0) return;
-      if (event.pointerType === "touch") {
-        const vw = window.innerWidth;
-        const inEdgeGutter =
-          event.clientX <= EDGE_SCROLL_GUTTER_PX ||
-          event.clientX >= vw - EDGE_SCROLL_GUTTER_PX;
-
-        if (inEdgeGutter) {
-          drawingRef.current = false;
-          pointerRef.current = null;
-          lastRef.current = null;
-          return;
-        }
-      }
-
       drawingRef.current = true;
-      if (event.pointerType === "touch" && event.target instanceof Element) {
-        event.preventDefault();
-        if ("setPointerCapture" in event.target) {
-          (event.target as Element & { setPointerCapture: (id: number) => void }).setPointerCapture(event.pointerId);
-        }
-      }
       setPointer(event.clientX, event.clientY);
       lastRef.current = pointerRef.current;
     };
 
-    const onPointerUp = (event: PointerEvent) => {
-      if (event.pointerType === "touch" && event.target instanceof Element) {
-        if ("releasePointerCapture" in event.target) {
-          (event.target as Element & { releasePointerCapture: (id: number) => void }).releasePointerCapture(event.pointerId);
-        }
-      }
+    const onPointerUp = () => {
       drawingRef.current = false;
       lastRef.current = pointerRef.current;
     };
@@ -141,19 +111,11 @@ export default function DoodleOverlay() {
       drawingRef.current = false;
     };
 
-    const onTouchMove = (event: TouchEvent) => {
-      if (!drawingRef.current) return;
-      if (event.touches.length <= 1) {
-        event.preventDefault();
-      }
-    };
-
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("pointerup", onPointerUp);
     window.addEventListener("pointercancel", onPointerUp);
-    window.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("blur", onLeave);
 
     rafRef.current = window.requestAnimationFrame(loop);
@@ -167,7 +129,6 @@ export default function DoodleOverlay() {
       window.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointerup", onPointerUp);
       window.removeEventListener("pointercancel", onPointerUp);
-      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("blur", onLeave);
     };
   }, []);
@@ -176,7 +137,7 @@ export default function DoodleOverlay() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-10 touch-none"
+      className="pointer-events-none fixed inset-0 z-10"
     />
   );
 }
