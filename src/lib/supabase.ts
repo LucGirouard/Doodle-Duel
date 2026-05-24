@@ -10,5 +10,5 @@ export const supabase = createBrowserClient(
       secure: false,
       path: "/",
     },
-  }
+  },
 );

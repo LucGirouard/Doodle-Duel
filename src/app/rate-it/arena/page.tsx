@@ -5,7 +5,10 @@ import Image from "next/image";
 import PageShell from "@/components/page-shell";
 import PageCard from "@/components/ui/page-card";
 import PageTitle from "@/components/ui/page-title";
-import { PrimaryButton, PrimaryLinkButton } from "@/components/ui/primary-button";
+import {
+  PrimaryButton,
+  PrimaryLinkButton,
+} from "@/components/ui/primary-button";
 import { ROUTES } from "@/lib/constants";
 import { getLocalDayRange } from "@/lib/day";
 import { supabase } from "@/lib/supabase";
@@ -71,7 +74,10 @@ export default function RateItArenaPage() {
     if (!current) return;
     const newScore = nextScore(current.elo, liked);
 
-    await supabase.from("artworks").update({ elo: newScore }).eq("id", current.id);
+    await supabase
+      .from("artworks")
+      .update({ elo: newScore })
+      .eq("id", current.id);
 
     if (userId) {
       await supabase.from("votes").insert({
@@ -81,7 +87,9 @@ export default function RateItArenaPage() {
       });
     }
 
-    setCards((prev) => prev.map((c) => (c.id === current.id ? { ...c, elo: newScore } : c)));
+    setCards((prev) =>
+      prev.map((c) => (c.id === current.id ? { ...c, elo: newScore } : c)),
+    );
     setIndex((prev) => prev + 1);
   };
 
@@ -119,11 +127,16 @@ export default function RateItArenaPage() {
             Back
           </PrimaryLinkButton>
           <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-            <PageTitle className="text-4xl sm:text-5xl">No art yet today</PageTitle>
+            <PageTitle className="text-4xl sm:text-5xl">
+              No art yet today
+            </PageTitle>
             <p className="mt-4 max-w-xl text-base leading-7 text-stone-700">
               Nobody has submitted a daily draw yet. Be the first!
             </p>
-            <PrimaryLinkButton href={ROUTES.quickplayCreate} className="mt-7 w-full sm:max-w-md">
+            <PrimaryLinkButton
+              href={ROUTES.quickplayCreate}
+              className="mt-7 w-full sm:max-w-md"
+            >
               Open Daily Draw
             </PrimaryLinkButton>
           </div>
@@ -141,16 +154,26 @@ export default function RateItArenaPage() {
         >
           Back
         </PrimaryLinkButton>
-        <p className="text-xs font-semibold uppercase tracking-[0.45em] text-stone-500">arena</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.45em] text-stone-500">
+          arena
+        </p>
 
         {!complete ? (
           <>
-            <PageTitle className="mt-4 text-4xl sm:text-5xl">Swipe to rate!</PageTitle>
+            <PageTitle className="mt-4 text-4xl sm:text-5xl">
+              Swipe to rate!
+            </PageTitle>
             <div className="mt-4 flex items-center justify-between">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-stone-600">Score</p>
-              <p className="text-2xl font-black text-stone-900">{current.elo}</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-stone-600">
+                Score
+              </p>
+              <p className="text-2xl font-black text-stone-900">
+                {current.elo}
+              </p>
             </div>
-            <div className="mt-2 text-sm font-semibold text-stone-700">by {current.username}</div>
+            <div className="mt-2 text-sm font-semibold text-stone-700">
+              by {current.username}
+            </div>
             <div className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">
               {index + 1} / {cards.length}
             </div>
@@ -161,8 +184,14 @@ export default function RateItArenaPage() {
               onTouchEnd={onTouchEnd}
               style={{
                 transform: `translateX(${touchDeltaX}px) rotate(${touchDeltaX * 0.02}deg)`,
-                transition: touchStartX === null ? "transform 180ms ease" : "none",
-                backgroundColor: touchDeltaX > 30 ? "rgba(34,197,94,0.08)" : touchDeltaX < -30 ? "rgba(239,68,68,0.08)" : undefined,
+                transition:
+                  touchStartX === null ? "transform 180ms ease" : "none",
+                backgroundColor:
+                  touchDeltaX > 30
+                    ? "rgba(34,197,94,0.08)"
+                    : touchDeltaX < -30
+                      ? "rgba(239,68,68,0.08)"
+                      : undefined,
               }}
             >
               <div className="bg-[#fffaf1]">
@@ -187,14 +216,20 @@ export default function RateItArenaPage() {
               >
                 No
               </PrimaryButton>
-              <PrimaryButton type="button" onClick={() => onSwipe(true)} className="w-full sm:flex-1">
+              <PrimaryButton
+                type="button"
+                onClick={() => onSwipe(true)}
+                className="w-full sm:flex-1"
+              >
                 Yes
               </PrimaryButton>
             </div>
           </>
         ) : (
           <>
-            <PageTitle className="mt-4 text-4xl sm:text-5xl">All cards rated</PageTitle>
+            <PageTitle className="mt-4 text-4xl sm:text-5xl">
+              All cards rated
+            </PageTitle>
             <p className="mt-4 text-base leading-7 text-stone-700">
               You completed this arena run. Here are the artwork rankings.
             </p>
@@ -202,7 +237,10 @@ export default function RateItArenaPage() {
               <div className="mt-6 space-y-3">
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {topThree.map((card, rank) => (
-                    <div key={`top-${card.id}`} className="rounded-xl border border-stone-200 bg-white/75 p-2 sm:p-3">
+                    <div
+                      key={`top-${card.id}`}
+                      className="rounded-xl border border-stone-200 bg-white/75 p-2 sm:p-3"
+                    >
                       <div className="overflow-hidden rounded-lg border border-stone-200">
                         <Image
                           src={card.src}
@@ -219,7 +257,9 @@ export default function RateItArenaPage() {
                       <p className="mt-0.5 truncate text-xs font-bold text-stone-800 sm:mt-1 sm:text-base">
                         {card.username}
                       </p>
-                      <p className="text-sm font-black text-stone-900 sm:text-lg">{card.elo}</p>
+                      <p className="text-sm font-black text-stone-900 sm:text-lg">
+                        {card.elo}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -228,11 +268,15 @@ export default function RateItArenaPage() {
                     key={card.id}
                     className="flex items-center justify-between rounded-xl border border-stone-200 bg-white/70 px-3 py-2 sm:px-4 sm:py-3"
                   >
-                    <p className="text-xs font-semibold text-stone-700 sm:text-sm">#{rank + 4}</p>
+                    <p className="text-xs font-semibold text-stone-700 sm:text-sm">
+                      #{rank + 4}
+                    </p>
                     <p className="max-w-[45%] truncate text-xs font-semibold text-stone-600 sm:text-sm">
                       {card.username}
                     </p>
-                    <p className="text-sm font-black text-stone-900 sm:text-base">{card.elo}</p>
+                    <p className="text-sm font-black text-stone-900 sm:text-base">
+                      {card.elo}
+                    </p>
                   </div>
                 ))}
               </div>

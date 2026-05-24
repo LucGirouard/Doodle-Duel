@@ -12,4 +12,3 @@ export function getLocalDayRange(date = new Date()) {
   end.setDate(end.getDate() + 1);
   return { startIso: start.toISOString(), endIso: end.toISOString() };
 }
-

@@ -52,7 +52,10 @@ export default function AuthControls() {
         </div>
       ) : (
         <div className="flex gap-2">
-          <PrimaryLinkButton href={`${ROUTES.auth}?mode=login`} className="px-4 py-2 text-xs">
+          <PrimaryLinkButton
+            href={`${ROUTES.auth}?mode=login`}
+            className="px-4 py-2 text-xs"
+          >
             Login
           </PrimaryLinkButton>
         </div>

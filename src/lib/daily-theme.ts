@@ -9,4 +9,3 @@ export function getDailyTheme(date = new Date()): string {
   }
   return DAILY_WORD_BANK[hash % DAILY_WORD_BANK.length];
 }
-

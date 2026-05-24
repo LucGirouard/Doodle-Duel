@@ -6,7 +6,10 @@ import Link from "next/link";
 import PageShell from "@/components/page-shell";
 import PageCard from "@/components/ui/page-card";
 import PageTitle from "@/components/ui/page-title";
-import { PrimaryButton, PrimaryLinkButton } from "@/components/ui/primary-button";
+import {
+  PrimaryButton,
+  PrimaryLinkButton,
+} from "@/components/ui/primary-button";
 import { loginUser, registerUser } from "@/lib/auth";
 import { ROUTES } from "@/lib/constants";
 
@@ -49,9 +52,16 @@ function AuthPageInner() {
   };
 
   return (
-    <PageShell maxWidth="2xl" showDoodles={false} showAuthControls={false} showHomeButton={false}>
+    <PageShell
+      maxWidth="2xl"
+      showDoodles={false}
+      showAuthControls={false}
+      showHomeButton={false}
+    >
       <PageCard className="px-5 py-9 sm:px-8 sm:py-11 md:px-12 animate-[rise-in_700ms_ease-out]">
-        <p className="text-xs font-semibold uppercase tracking-[0.45em] text-stone-500">account</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.45em] text-stone-500">
+          account
+        </p>
         <PageTitle className="mt-4 text-4xl sm:text-5xl">
           {mode === "login" ? "Login" : "Register"}
         </PageTitle>
@@ -82,7 +92,9 @@ function AuthPageInner() {
           />
         </div>
 
-        {error ? <p className="mt-3 text-sm font-semibold text-rose-700">{error}</p> : null}
+        {error ? (
+          <p className="mt-3 text-sm font-semibold text-rose-700">{error}</p>
+        ) : null}
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <PrimaryButton onClick={onSubmit} className="w-full sm:flex-1">
@@ -99,16 +111,20 @@ function AuthPageInner() {
         {mode === "login" ? (
           <p className="mt-5 text-sm text-stone-700">
             Don&apos;t have an account?{" "}
-            <Link href={`${ROUTES.auth}?mode=register&next=${encodeURIComponent(nextRoute)}`}
-              className="font-semibold text-amber-800 underline decoration-amber-700/70 underline-offset-4">
+            <Link
+              href={`${ROUTES.auth}?mode=register&next=${encodeURIComponent(nextRoute)}`}
+              className="font-semibold text-amber-800 underline decoration-amber-700/70 underline-offset-4"
+            >
               Register here
             </Link>
           </p>
         ) : (
           <p className="mt-5 text-sm text-stone-700">
             Already have an account?{" "}
-            <Link href={`${ROUTES.auth}?mode=login&next=${encodeURIComponent(nextRoute)}`}
-              className="font-semibold text-amber-800 underline decoration-amber-700/70 underline-offset-4">
+            <Link
+              href={`${ROUTES.auth}?mode=login&next=${encodeURIComponent(nextRoute)}`}
+              className="font-semibold text-amber-800 underline decoration-amber-700/70 underline-offset-4"
+            >
               Login here
             </Link>
           </p>

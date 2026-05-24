@@ -35,7 +35,7 @@ export default function PageShell({
   return (
     <main className="paper-bg relative min-h-screen overflow-hidden px-4 py-5 text-slate-900 sm:px-8 sm:py-8 md:px-10 md:py-10">
       {showDoodles ? <DoodleOverlay /> : null}
-      {(showAuthControls || shouldShowHomeButton) ? (
+      {showAuthControls || shouldShowHomeButton ? (
         <div className="absolute left-4 right-4 top-4 z-30 flex items-start justify-between sm:left-8 sm:right-8 sm:top-6 md:left-10 md:right-10 md:top-8">
           <div className="pointer-events-auto">
             {shouldShowHomeButton ? (
