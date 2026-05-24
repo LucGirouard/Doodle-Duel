@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import PageShell from "@/components/page-shell";
 import PageCard from "@/components/ui/page-card";
 import PageTitle from "@/components/ui/page-title";
@@ -216,7 +216,7 @@ export default function DailyDrawPage() {
   const toolButtonClass =
     "rounded-full border border-stone-400 bg-stone-100 px-4 py-2 text-xs font-semibold text-stone-800 transition hover:bg-stone-200 disabled:cursor-not-allowed disabled:opacity-50";
 
-  const submit = async (force = false) => {
+  const submit = useCallback(async (force = false) => {
     if ((!canEdit && !force) || !userId) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -247,7 +247,7 @@ export default function DailyDrawPage() {
     if (insertError) { alert("Save failed: " + insertError.message); return; }
 
     setSubmitted(true);
-  };
+  }, [canEdit, userId]);
 
   useEffect(() => {
     if (secondsLeft === 0 && !submitted && userId) {
@@ -256,7 +256,7 @@ export default function DailyDrawPage() {
       }, 0);
       return () => window.clearTimeout(id);
     }
-  }, [secondsLeft]);
+  }, [secondsLeft, submit, submitted, userId]);
 
   if (loading) return null;
 
@@ -380,7 +380,7 @@ export default function DailyDrawPage() {
         </div>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <PrimaryButton type="button" onClick={submit} disabled={!canEdit}
+          <PrimaryButton type="button" onClick={() => void submit()} disabled={!canEdit}
             className="w-full disabled:cursor-not-allowed disabled:opacity-50 sm:flex-1">
             Submit daily entry
           </PrimaryButton>
