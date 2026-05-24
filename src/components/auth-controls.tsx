@@ -39,13 +39,13 @@ export default function AuthControls() {
     <div>
       {username ? (
         <div className="flex h-10 items-center gap-2 rounded-full border border-stone-300 bg-white/80 px-3 backdrop-blur-sm">
-          <span className="max-w-[130px] truncate text-xs font-semibold text-stone-700 sm:max-w-[180px]">
+          <span className="max-w-32.5 truncate text-xs font-semibold text-stone-700 sm:max-w-45">
             {username}
           </span>
           <button
             type="button"
             onClick={onLogout}
-            className="inline-flex h-8 min-w-[78px] items-center justify-center rounded-full border border-stone-300 bg-white/80 px-4 text-xs font-semibold text-stone-700 transition hover:bg-white"
+            className="inline-flex h-8 min-w-19.5 items-center justify-center rounded-full border border-stone-300 bg-white/80 px-4 text-xs font-semibold text-stone-700 transition hover:bg-white"
           >
             Logout
           </button>

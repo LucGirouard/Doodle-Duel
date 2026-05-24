@@ -41,7 +41,7 @@ export default function PageShell({
             {shouldShowHomeButton ? (
               <Link
                 href={ROUTES.home}
-                className="inline-flex h-10 min-w-[78px] items-center justify-center rounded-full border border-stone-300 bg-white/80 px-4 text-xs font-semibold text-stone-700 backdrop-blur-sm transition hover:bg-white"
+                className="inline-flex h-10 min-w-19.5 items-center justify-center rounded-full border border-stone-300 bg-white/80 px-4 text-xs font-semibold text-stone-700 backdrop-blur-sm transition hover:bg-white"
               >
                 Home
               </Link>

@@ -369,7 +369,7 @@ export default function DailyDrawPage() {
                 title="Custom color"
               >
                 <span
-                  className="block h-full w-full rounded-[4px]"
+                  className="block h-full w-full rounded-sm"
                   style={{ backgroundColor: brushColor }}
                 />
                 <input

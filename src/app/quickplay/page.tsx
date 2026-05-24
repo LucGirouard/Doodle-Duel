@@ -67,13 +67,13 @@ export default function QuickplayPage() {
               </p>
               <PrimaryLinkButton
                 href={ROUTES.quickplayCreate}
-                className="mt-5 w-full !border-white !bg-white !text-amber-900 shadow-[0_8px_18px_rgba(0,0,0,0.14)] hover:!bg-amber-50"
+                className="mt-5 w-full border-white! bg-white! text-amber-900! shadow-[0_8px_18px_rgba(0,0,0,0.14)] hover:bg-amber-50!"
               >
                 {hasSubmittedToday ? "View submission" : "Start drawing"}
               </PrimaryLinkButton>
             </div>
 
-            <div className="rounded-[1.75rem] border border-white/70 bg-gradient-to-br from-white/85 to-[#fff7ed]/65 px-6 py-5 shadow-[0_8px_24px_rgba(80,40,10,0.08)] backdrop-blur-sm">
+            <div className="rounded-[1.75rem] border border-white/70 bg-linear-to-br from-white/85 to-[#fff7ed]/65 px-6 py-5 shadow-[0_8px_24px_rgba(80,40,10,0.08)] backdrop-blur-sm">
               <p className="text-lg font-bold text-stone-900">
                 Community voting
               </p>
