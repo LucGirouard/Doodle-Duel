@@ -141,11 +141,19 @@ export default function DoodleOverlay() {
       drawingRef.current = false;
     };
 
+    const onTouchMove = (event: TouchEvent) => {
+      if (!drawingRef.current) return;
+      if (event.touches.length <= 1) {
+        event.preventDefault();
+      }
+    };
+
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("pointerup", onPointerUp);
     window.addEventListener("pointercancel", onPointerUp);
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("blur", onLeave);
 
     rafRef.current = window.requestAnimationFrame(loop);
@@ -159,6 +167,7 @@ export default function DoodleOverlay() {
       window.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointerup", onPointerUp);
       window.removeEventListener("pointercancel", onPointerUp);
+      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("blur", onLeave);
     };
   }, []);
