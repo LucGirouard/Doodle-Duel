@@ -52,7 +52,7 @@ export default function QuickplayPage() {
               <br />2 minutes
             </PageTitle>
             <p className="text-base leading-7 text-stone-700">
-              One daily drawing, one official submission, and a shot at the top
+              One daily drawing, one official submission and a shot at the top
               of today&apos;s leaderboard.
             </p>
           </div>
