@@ -2,9 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Art Battle",
-    short_name: "ArtBattle",
-    description: "Modern 1v1 sketch battles with quick room-based matchmaking.",
+    name: "Doodle Duel",
+    short_name: "DoodleDuel",
+    description:
+      "A daily drawing challenge where the community votes and ranks art in TinderArt.",
     start_url: "/",
     display: "standalone",
     background_color: "#f7f1e8",

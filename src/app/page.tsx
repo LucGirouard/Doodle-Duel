@@ -14,7 +14,7 @@ export default function Home() {
           </p>
 
           <PageTitle className="mt-4 text-5xl sm:mt-5 sm:text-6xl md:text-7xl">
-            Art Battle
+            Doodle Duel
           </PageTitle>
 
           <p className="mt-5 max-w-sm text-base leading-7 text-stone-700">
@@ -26,7 +26,7 @@ export default function Home() {
               href={ROUTES.quickplay}
               className="w-full px-8 text-base shadow-[0_8px_18px_rgba(95,50,10,0.16)] active:translate-y-0 sm:flex-1"
             >
-              1v1
+              Daily Draw
             </PrimaryLinkButton>
             <PrimaryLinkButton
               href={ROUTES.tinderArt}

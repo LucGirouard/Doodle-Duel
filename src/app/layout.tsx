@@ -9,14 +9,15 @@ const metadataBase =
 export const metadata: Metadata = {
   metadataBase,
   title: {
-    default: "Art Battle",
-    template: "%s | Art Battle",
+    default: "Doodle Duel",
+    template: "%s | Doodle Duel",
   },
-  description: "Modern 1v1 sketch battles with quick room-based matchmaking.",
-  applicationName: "Art Battle",
+  description:
+    "A daily drawing challenge where the community votes and ranks art in TinderArt.",
+  applicationName: "Doodle Duel",
   appleWebApp: {
     capable: true,
-    title: "Art Battle",
+    title: "Doodle Duel",
     statusBarStyle: "default",
   },
   formatDetection: {
