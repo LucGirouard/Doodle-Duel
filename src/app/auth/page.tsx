@@ -99,7 +99,7 @@ function AuthPageInner() {
         {mode === "login" ? (
           <p className="mt-5 text-sm text-stone-700">
             Don&apos;t have an account?{" "}
-            <Link href={`${ROUTES.auth}?mode=register`}
+            <Link href={`${ROUTES.auth}?mode=register&next=${encodeURIComponent(nextRoute)}`}
               className="font-semibold text-amber-800 underline decoration-amber-700/70 underline-offset-4">
               Register here
             </Link>
@@ -107,7 +107,7 @@ function AuthPageInner() {
         ) : (
           <p className="mt-5 text-sm text-stone-700">
             Already have an account?{" "}
-            <Link href={`${ROUTES.auth}?mode=login`}
+            <Link href={`${ROUTES.auth}?mode=login&next=${encodeURIComponent(nextRoute)}`}
               className="font-semibold text-amber-800 underline decoration-amber-700/70 underline-offset-4">
               Login here
             </Link>
