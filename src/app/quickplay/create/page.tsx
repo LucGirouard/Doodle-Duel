@@ -15,6 +15,15 @@ function todayKey() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function cloneStrokes(strokes: Stroke[]) {
+  return strokes.map((s) => ({
+    color: s.color,
+    size: s.size,
+    erase: s.erase,
+    points: s.points.slice(),
+  }));
+}
+
 export default function DailyDrawPage() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const isDrawingRef = useRef(false);
@@ -111,12 +120,7 @@ export default function DailyDrawPage() {
       if (!canEditRef.current) return;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      const snapshot = strokesRef.current.map((s) => ({
-        color: s.color,
-        size: s.size,
-        erase: s.erase,
-        points: s.points.slice(),
-      }));
+      const snapshot = cloneStrokes(strokesRef.current);
       undoStackRef.current.push(snapshot);
       if (undoStackRef.current.length > 100) undoStackRef.current.shift();
 
@@ -193,12 +197,7 @@ export default function DailyDrawPage() {
 
   const clearCanvas = () => {
     if (!canEdit) return;
-    const snapshot = strokesRef.current.map((s) => ({
-      color: s.color,
-      size: s.size,
-      erase: s.erase,
-      points: s.points.slice(),
-    }));
+    const snapshot = cloneStrokes(strokesRef.current);
     undoStackRef.current.push(snapshot);
     if (undoStackRef.current.length > 100) undoStackRef.current.shift();
     strokesRef.current = [];
@@ -207,13 +206,16 @@ export default function DailyDrawPage() {
 
   const undo = () => {
     if (!canEdit) return;
+    if (!undoStackRef.current.length) return;
     const last = undoStackRef.current.pop();
-    if (last) strokesRef.current = last;
-    else strokesRef.current.pop();
+    if (!last) return;
+    strokesRef.current = last;
     redrawRef.current();
   };
 
   const toggleEraser = () => setIsEraser((v) => !v);
+  const toolButtonClass =
+    "rounded-full border border-stone-400 bg-stone-100 px-4 py-2 text-xs font-semibold text-stone-800 transition hover:bg-stone-200 disabled:cursor-not-allowed disabled:opacity-50";
 
   const submit = async () => {
     if (!canEdit || !userId) return;
@@ -277,19 +279,17 @@ export default function DailyDrawPage() {
           ) : null}
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-4 rounded-2xl border border-stone-300 bg-white/70 p-4">
-          <div className="flex items-center gap-2">
-            <label className="text-xs font-semibold uppercase tracking-[0.15em] text-stone-600">Color</label>
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2 rounded-full border border-stone-300 bg-white/75 px-3 py-2">
+            <label className="text-xs font-semibold text-stone-700">Color</label>
             <input
               type="color"
               value={brushColor}
               disabled={!canEdit}
               onChange={(e) => setBrushColor(e.target.value)}
-              className="h-9 w-12 cursor-pointer rounded border border-stone-300 disabled:cursor-not-allowed disabled:opacity-50"
+              className="h-8 w-10 cursor-pointer rounded-md border border-stone-300 bg-white disabled:cursor-not-allowed disabled:opacity-50"
             />
-          </div>
-          <div className="flex items-center gap-2">
-            <label className="text-xs font-semibold uppercase tracking-[0.15em] text-stone-600">Size</label>
+            <label className="ml-2 text-xs font-semibold text-stone-700">Size</label>
             <input
               type="range"
               min={1}
@@ -297,38 +297,42 @@ export default function DailyDrawPage() {
               value={brushSize}
               disabled={!canEdit}
               onChange={(e) => setBrushSize(Number(e.target.value))}
-              className="disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-24 accent-amber-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-28 md:w-32"
             />
-            <span className="text-xs font-semibold text-stone-600 w-6">{brushSize}</span>
+            <span className="w-7 rounded-full bg-stone-100 px-1.5 py-0.5 text-center text-[11px] font-semibold text-stone-700">
+              {brushSize}
+            </span>
           </div>
-          <button
-            onClick={toggleEraser}
-            disabled={!canEdit}
-            className={`rounded-full border px-4 py-2 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${
-              isEraser
-                ? "border-stone-900 bg-stone-900 text-white"
-                : "border-stone-300 bg-white text-stone-700 hover:bg-stone-100"
-            }`}
-          >
-            {isEraser ? "Eraser On" : "Eraser"}
-          </button>
-          <button
-            onClick={undo}
-            disabled={!canEdit}
-            className="rounded-full border border-stone-300 bg-white px-4 py-2 text-xs font-semibold text-stone-700 transition hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Undo
-          </button>
-          <button
-            onClick={clearCanvas}
-            disabled={!canEdit}
-            className="rounded-full border border-stone-300 bg-white px-4 py-2 text-xs font-semibold text-stone-700 transition hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Clear
-          </button>
+          <div className="ml-1.5 flex flex-wrap items-center gap-2.5 sm:ml-2">
+            <button
+              onClick={toggleEraser}
+              disabled={!canEdit}
+              className={`${toolButtonClass} px-3 py-1.5 text-[11px] ${
+                isEraser
+                  ? "border-stone-900 bg-stone-900 text-white hover:bg-stone-900"
+                  : ""
+              }`}
+            >
+              {isEraser ? "Eraser On" : "Eraser"}
+            </button>
+            <button
+              onClick={undo}
+              disabled={!canEdit || undoStackRef.current.length === 0}
+              className={`${toolButtonClass} px-3 py-1.5 text-[11px]`}
+            >
+              Undo
+            </button>
+            <button
+              onClick={clearCanvas}
+              disabled={!canEdit}
+              className={`${toolButtonClass} px-3 py-1.5 text-[11px]`}
+            >
+              Clear
+            </button>
+          </div>
         </div>
 
-        <div className="mt-4 overflow-hidden rounded-2xl border border-stone-300 bg-[#fffaf1]">
+        <div className="mt-6 overflow-hidden rounded-2xl border border-stone-300 bg-[#fffaf1]">
           <canvas
             ref={canvasRef}
             className="block h-[clamp(360px,62vh,760px)] w-full touch-none"

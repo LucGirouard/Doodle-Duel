@@ -46,6 +46,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  // Disabled for now to avoid redirect loops; route guards are handled client-side.
   matcher: ["/__disabled"],
 };
