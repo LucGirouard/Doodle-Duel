@@ -71,5 +71,5 @@ npm run dev
 ## Future ideas
 
 - Add personal stats card (submissions, average Elo, best rank).
-- Real-time live 1v1 battles via (WebSocket rooms).
+- Real-time live 1v1 battles using (WebSocket rooms).
 - Add sharing for submitted artwork.
