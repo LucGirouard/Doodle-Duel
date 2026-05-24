@@ -22,15 +22,9 @@ export default withAuth(
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
-     * - api/auth (authentication routes)
-     * - login (login page)
-     * - signin (signin page)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public assets
+     * Only protect quickplay routes - these require authentication
+     * All other routes (home, leaderboard, login, etc.) are public
      */
-    "/((?!api/auth|login|signin|_next/static|_next/image|favicon.ico|.*\\..*).*)",
+    "/quickplay/:path*",
   ],
 };

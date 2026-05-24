@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import "./globals.css";
 import { NextAuthProvider } from "./providers";
 import UserMenu from "./components/UserMenu";

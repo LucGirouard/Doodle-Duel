@@ -52,12 +52,20 @@ export default function Home() {
               Intense battles!
             </p>
 
-            <Link
-              href="/quickplay"
-              className="mt-10 inline-flex items-center rounded-full border border-stone-900 bg-stone-900 px-8 py-3 text-base font-semibold text-[#fffaf1] shadow-[0_10px_24px_rgba(30,20,10,0.18)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-stone-800 active:translate-y-0"
-            >
-              Quickplay
-            </Link>
+            <div className="flex gap-4 mt-10">
+              <Link
+                href="/quickplay"
+                className="inline-flex items-center rounded-full border border-stone-900 bg-stone-900 px-8 py-3 text-base font-semibold text-[#fffaf1] shadow-[0_10px_24px_rgba(30,20,10,0.18)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-stone-800 active:translate-y-0"
+              >
+                Quickplay
+              </Link>
+              <Link
+                href="/leaderboard"
+                className="inline-flex items-center rounded-full border border-stone-900 bg-transparent px-8 py-3 text-base font-semibold text-stone-900 shadow-[0_10px_24px_rgba(30,20,10,0.18)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-stone-100 active:translate-y-0"
+              >
+                Leaderboard
+              </Link>
+            </div>
           </div>
         </section>
       </div>
