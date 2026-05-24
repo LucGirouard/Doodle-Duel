@@ -5,7 +5,6 @@ A fast-paced, daily art game that requires the user to draw and submit in 2 minu
 ## Demo
 
 - Live app: `doodle-duel-htm.vercel.app`
-- Video: `TODO`
 
 ## What It Does?
 
