@@ -29,10 +29,7 @@ export async function proxy(req: NextRequest) {
       },
     },
   );
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user }} = await supabase.auth.getUser();
 
   if (!user) {
     const redirectUrl = req.nextUrl.clone();
