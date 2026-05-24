@@ -44,7 +44,12 @@ function AuthPageInner() {
   };
 
   return (
-    <PageShell maxWidth="2xl" showDoodles={false}>
+    <PageShell
+      maxWidth="2xl"
+      showDoodles={false}
+      showAuthControls={false}
+      showHomeButton={false}
+    >
       <PageCard className="px-5 py-9 sm:px-8 sm:py-11 md:px-12 animate-[rise-in_700ms_ease-out]">
         <p className="text-xs font-semibold uppercase tracking-[0.45em] text-stone-500">account</p>
         <PageTitle className="mt-4 text-4xl sm:text-5xl">
@@ -78,7 +83,7 @@ function AuthPageInner() {
             href={ROUTES.home}
             className="w-full border-stone-400 bg-stone-100 text-stone-800 hover:bg-stone-200 sm:flex-1"
           >
-            Back home
+            Back
           </PrimaryLinkButton>
         </div>
 
