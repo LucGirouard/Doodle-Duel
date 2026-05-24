@@ -2,29 +2,65 @@ import Link from "next/link";
 
 export default function CreateGamePage() {
   return (
-    <main className="relative min-h-screen overflow-hidden px-6 py-8 text-stone-900 sm:px-10 sm:py-10">
-      <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-2xl items-center justify-center">
-        <section className="w-full rounded-[2.5rem] border border-stone-300/80 bg-[#fffaf1]/95 px-8 py-12 shadow-[0_24px_80px_rgba(80,55,30,0.16)] sm:px-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.45em] text-stone-500">
-            create game
-          </p>
-          <h1
-            className="mt-4 text-5xl font-black tracking-tight text-stone-900"
-            style={{ fontFamily: '"Chalkboard SE", "Comic Sans MS", cursive' }}
-          >
-            Room setup coming next
-          </h1>
-          <p className="mt-4 max-w-lg text-base leading-7 text-stone-600">
-            This route is ready for your create-room flow. Next you can generate a
-            4-letter code here and send the player into the match lobby.
+    <main className="paper-page">
+      <div className="paper-center">
+        <section className="paper-shell paper-shell-sm grid gap-6">
+          <p className="paper-label">
+            create game lobby
           </p>
 
-          <Link
-            href="/quickplay"
-            className="mt-8 inline-flex items-center rounded-full border border-stone-900 bg-stone-900 px-6 py-3 text-sm font-semibold text-[#fffaf1] hover:bg-stone-800"
+          <h1
+            className="paper-heading text-5xl font-black"
           >
-            Back
-          </Link>
+            Waiting for player...
+          </h1>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="paper-card p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-stone-500">
+                room code
+              </p>
+              <p className="mt-2 text-4xl font-black tracking-[0.35em] text-stone-900">
+                XXXX
+              </p>
+            </div>
+
+            <div className="paper-card p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-stone-500">
+                status
+              </p>
+              <p className="mt-2 text-lg font-semibold text-stone-900">
+                Waiting for opponent to join
+              </p>
+            </div>
+          </div>
+
+          <div className="paper-card-dashed text-sm leading-7 text-stone-600">
+            <p className="font-semibold text-stone-900">Rules</p>
+            <p className="mt-2">
+              You will have 60 seconds to draw a random word.
+              When the timer runs out, the game will end and you can see how your opponent did.
+            </p>
+            <p className="mt-2">
+             You will be judged!
+            </p>                    
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/quickplay/play"
+              className="paper-button-primary"
+            >
+              Start
+            </Link>
+
+            <Link
+              href="/quickplay"
+              className="paper-button-secondary"
+            >
+              Back
+            </Link>
+          </div>
         </section>
       </div>
     </main>

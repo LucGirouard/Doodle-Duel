@@ -23,17 +23,16 @@ export default function QuickplayPage() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden px-6 py-8 text-stone-900 sm:px-10 sm:py-10">
-      <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-4xl items-center justify-center">
-        <section className="w-full rounded-[2.5rem] border border-stone-300/80 bg-[#fffaf1]/95 px-7 py-10 shadow-[0_24px_80px_rgba(80,55,30,0.16)] sm:px-10 sm:py-12">
+    <main className="paper-page">
+      <div className="paper-center">
+        <section className="paper-shell paper-shell-md">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             <div className="max-w-md space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.45em] text-stone-500">
+              <p className="paper-label">
                 quickplay
               </p>
               <h1
-                className="text-5xl font-black tracking-tight text-stone-900 sm:text-6xl"
-                style={{ fontFamily: '"Chalkboard SE", "Comic Sans MS", cursive' }}
+                className="paper-heading text-5xl font-black sm:text-6xl"
               >
                 Choose a game
               </h1>
@@ -42,7 +41,7 @@ export default function QuickplayPage() {
               </p>
               <Link
                 href="/"
-                className="inline-flex items-center text-sm font-semibold text-stone-500 underline decoration-stone-400/70 underline-offset-4"
+                className="paper-link-muted"
               >
                 Back home
               </Link>
@@ -59,7 +58,7 @@ export default function QuickplayPage() {
                 </p>
               </Link>
 
-              <div className="rounded-[1.75rem] border border-stone-300 bg-white/70 px-6 py-5">
+              <div className="paper-card px-6 py-5">
                 <p className="text-lg font-bold text-stone-900">Join game</p>
                 <p className="mt-2 text-sm leading-6 text-stone-600">
                   Enter the 4-letter code from your opponent.
@@ -82,7 +81,7 @@ export default function QuickplayPage() {
                     type="button"
                     onClick={handleJoin}
                     disabled={!canJoin}
-                    className="rounded-full border border-stone-900 bg-stone-900 px-6 py-3 text-sm font-semibold text-[#fffaf1] transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="paper-button-primary disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Join game
                   </button>

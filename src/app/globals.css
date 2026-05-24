@@ -54,3 +54,156 @@ body::before {
 	background: rgba(120, 93, 52, 0.22);
 	color: #1f140d;
 }
+
+.paper-page {
+	position: relative;
+	min-height: 100vh;
+	overflow: hidden;
+	padding: 2rem 1.5rem;
+	color: #1f2937;
+}
+
+.paper-center {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	min-height: calc(100vh - 4rem);
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+.paper-shell {
+	width: 100%;
+	border-radius: 2.5rem;
+	border: 1px solid rgba(214, 211, 209, 0.8);
+	background: rgba(255, 250, 241, 0.95);
+	box-shadow: 0 24px 80px rgba(80, 55, 30, 0.16);
+}
+
+.paper-shell-sm {
+	max-width: 42rem;
+	padding: 3rem 2rem;
+}
+
+.paper-shell-md {
+	max-width: 56rem;
+	padding: 2.5rem 1.75rem;
+}
+
+.paper-shell-lg {
+	max-width: 140rem;
+	padding: 3rem 2rem;
+	min-height: 90vh;
+}
+
+.paper-heading {
+	font-family: "Chalkboard SE", "Comic Sans MS", cursive;
+	letter-spacing: -0.025em;
+	color: #1f140d;
+}
+
+.paper-label {
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.45em;
+	color: #737373;
+}
+
+.paper-card {
+	border-radius: 1.75rem;
+	border: 1px solid #d6d3d1;
+	background: rgba(255, 255, 255, 0.7);
+	padding: 1.25rem;
+}
+
+.paper-card-soft {
+	border-radius: 1.75rem;
+	border: 1px solid #d6d3d1;
+	background: rgba(255, 255, 255, 0.8);
+	padding: 1.25rem;
+}
+
+.paper-card-dashed {
+	border-radius: 1.75rem;
+	border: 1px dashed #d6d3d1;
+	background: #fffef9;
+	padding: 1.25rem;
+}
+
+.paper-button-primary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 9999px;
+	border: 1px solid #1c1917;
+	background: #1c1917;
+	padding: 0.75rem 1.5rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: #fffaf1;
+	transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.paper-button-primary:hover {
+	background: #292524;
+}
+
+.paper-button-secondary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 9999px;
+	border: 1px solid #d6d3d1;
+	background: rgba(255, 255, 255, 0.8);
+	padding: 0.75rem 1.5rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: #44403c;
+	transition: border-color 150ms ease, color 150ms ease;
+}
+
+.paper-button-secondary:hover {
+	border-color: #1c1917;
+	color: #1c1917;
+}
+
+.paper-link-muted {
+	display: inline-flex;
+	align-items: center;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: #737373;
+	text-decoration-line: underline;
+	text-decoration-color: rgba(168, 162, 158, 0.7);
+	text-underline-offset: 0.25rem;
+}
+
+@media (min-width: 640px) {
+	.paper-page {
+		padding: 2.5rem 2.5rem;
+	}
+
+	.paper-shell-sm {
+		padding-left: 3rem;
+		padding-right: 3rem;
+	}
+
+	.paper-shell-md {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+	}
+
+	.paper-shell-lg {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+		padding-top: 2.5rem;
+		padding-bottom: 2.5rem;
+	}
+}
+
+
