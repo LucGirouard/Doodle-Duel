@@ -100,14 +100,22 @@ export default function DoodleOverlay() {
     const onPointerDown = (event: PointerEvent) => {
       if (event.pointerType === "mouse" && event.button !== 0) return;
       drawingRef.current = true;
-      if (event.pointerType === "touch") {
+      if (event.pointerType === "touch" && event.target instanceof Element) {
         event.preventDefault();
+        if ("setPointerCapture" in event.target) {
+          (event.target as Element & { setPointerCapture: (id: number) => void }).setPointerCapture(event.pointerId);
+        }
       }
       setPointer(event.clientX, event.clientY);
       lastRef.current = pointerRef.current;
     };
 
-    const onPointerUp = () => {
+    const onPointerUp = (event: PointerEvent) => {
+      if (event.pointerType === "touch" && event.target instanceof Element) {
+        if ("releasePointerCapture" in event.target) {
+          (event.target as Element & { releasePointerCapture: (id: number) => void }).releasePointerCapture(event.pointerId);
+        }
+      }
       drawingRef.current = false;
       lastRef.current = pointerRef.current;
     };
@@ -118,19 +126,11 @@ export default function DoodleOverlay() {
       drawingRef.current = false;
     };
 
-    const onTouchMove = (event: TouchEvent) => {
-      if (!coarsePointerRef.current || !drawingRef.current) return;
-      if (event.touches.length <= 1) {
-        event.preventDefault();
-      }
-    };
-
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("pointerup", onPointerUp);
     window.addEventListener("pointercancel", onPointerUp);
-    window.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("blur", onLeave);
 
     rafRef.current = window.requestAnimationFrame(loop);
@@ -144,7 +144,6 @@ export default function DoodleOverlay() {
       window.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointerup", onPointerUp);
       window.removeEventListener("pointercancel", onPointerUp);
-      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("blur", onLeave);
     };
   }, []);
