@@ -9,57 +9,34 @@ import {
   PrimaryButton,
   PrimaryLinkButton,
 } from "@/components/ui/primary-button";
-import {
-  DAILY_DRAW_SUBMISSION_KEY,
-  ROUTES,
-  TINDERART_STORAGE_KEY,
-} from "@/lib/constants";
-import { isLoggedIn } from "@/lib/auth";
-
-type DailySubmission = {
-  date: string;
-};
+import { ROUTES } from "@/lib/constants";
+import { supabase } from "@/lib/supabase";
 
 export default function TinderArtPage() {
   const router = useRouter();
-  const loggedIn = isLoggedIn();
-  const [todaySubmitted] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const today = new Date().toISOString().slice(0, 10);
-    const submissionRaw = window.localStorage.getItem(DAILY_DRAW_SUBMISSION_KEY);
-    if (!submissionRaw) return false;
-    try {
-      const parsed = JSON.parse(submissionRaw) as DailySubmission;
-      return parsed?.date === today;
-    } catch {
-      return false;
-    }
-  });
-  const [poolSize] = useState(() => {
-    if (typeof window === "undefined") return 0;
-    const poolRaw = window.localStorage.getItem(TINDERART_STORAGE_KEY);
-    if (!poolRaw) return 0;
-    try {
-      const parsed = JSON.parse(poolRaw);
-      return Array.isArray(parsed) ? parsed.filter(Boolean).length : 0;
-    } catch {
-      return 0;
-    }
-  });
+  const [todaySubmitted, setTodaySubmitted] = useState(false);
+  const [poolSize, setPoolSize] = useState(0);
 
   useEffect(() => {
-    if (!loggedIn) {
-      router.replace(
-        `${ROUTES.auth}?mode=login&next=${encodeURIComponent(ROUTES.tinderArt)}`,
-      );
-    }
-  }, [loggedIn, router]);
+    supabase.auth.getSession().then(async ({ data }) => {
+  if (!data.session) {
+    window.location.href = `/auth?mode=login&next=${encodeURIComponent(window.location.pathname)}`;
+    return;
+  }
+  const uid = data.session.user.id;
+  const today = new Date().toISOString().slice(0, 10);
 
-  const enterArena = () => {
-    router.push(ROUTES.tinderArtArena);
-  };
+      const { data: artworks } = await supabase
+        .from("artworks")
+        .select("id, user_id")
+        .gte("created_at", `${today}T00:00:00`);
 
-  if (!loggedIn) return null;
+      if (artworks) {
+        setPoolSize(artworks.length);
+        if (uid) setTodaySubmitted(artworks.some((a) => a.user_id === uid));
+      }
+    });
+  }, []);
 
   return (
     <PageShell maxWidth="4xl">
@@ -103,7 +80,10 @@ export default function TinderArtPage() {
         </div>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <PrimaryButton onClick={enterArena} className="w-full sm:flex-1">
+          <PrimaryButton
+            onClick={() => router.push(ROUTES.tinderArtArena)}
+            className="w-full sm:flex-1"
+          >
             Enter voting arena
           </PrimaryButton>
           <PrimaryLinkButton

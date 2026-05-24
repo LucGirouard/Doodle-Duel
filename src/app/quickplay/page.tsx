@@ -1,39 +1,33 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import PageShell from "@/components/page-shell";
 import PageCard from "@/components/ui/page-card";
 import PageTitle from "@/components/ui/page-title";
-import {
-  PrimaryLinkButton,
-} from "@/components/ui/primary-button";
-import { DAILY_DRAW_SUBMISSION_KEY, ROUTES } from "@/lib/constants";
-import { isLoggedIn } from "@/lib/auth";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { PrimaryLinkButton } from "@/components/ui/primary-button";
+import { ROUTES } from "@/lib/constants";
+import { supabase } from "@/lib/supabase";
 
 export default function QuickplayPage() {
-  const router = useRouter();
-  const [hasSubmittedToday] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const today = new Date().toISOString().slice(0, 10);
-    const raw = window.localStorage.getItem(DAILY_DRAW_SUBMISSION_KEY);
-    if (!raw) return false;
-    try {
-      const parsed = JSON.parse(raw) as { date?: string };
-      return parsed?.date === today;
-    } catch {
-      return false;
-    }
-  });
-  const loggedIn = isLoggedIn();
+  const [hasSubmittedToday, setHasSubmittedToday] = useState(false);
 
   useEffect(() => {
-    if (!loggedIn) {
-      router.replace(`${ROUTES.auth}?mode=login&next=${encodeURIComponent(ROUTES.quickplay)}`);
+  supabase.auth.getSession().then(async ({ data }) => {
+    if (!data.session) {
+      window.location.href = `/auth?mode=login&next=${encodeURIComponent(window.location.pathname)}`;
+      return;
     }
-  }, [loggedIn, router]);
-
-  if (!loggedIn) return null;
+    const uid = data.session.user.id;
+      const today = new Date().toISOString().slice(0, 10);
+      const { data: existing } = await supabase
+        .from("artworks")
+        .select("id")
+        .eq("user_id", uid)
+        .gte("created_at", `${today}T00:00:00`)
+        .maybeSingle();
+      if (existing) setHasSubmittedToday(true);
+    });
+  }, []);
 
   return (
     <PageShell maxWidth="4xl">
@@ -52,11 +46,10 @@ export default function QuickplayPage() {
             <PageTitle className="text-4xl sm:text-5xl md:text-6xl">
               One canvas
               <br />
-              3 minutes
+              2 minutes
             </PageTitle>
             <p className="text-base leading-7 text-stone-700">
-              Submit one drawing per day, then let the community rate it in
-              TinderArt.
+              Submit one drawing per day, then let the community rate it in TinderArt.
             </p>
           </div>
 
@@ -77,8 +70,7 @@ export default function QuickplayPage() {
             <div className="rounded-[1.75rem] border border-white/70 bg-gradient-to-br from-white/85 to-[#fff7ed]/65 px-6 py-5 shadow-[0_8px_24px_rgba(80,40,10,0.08)] backdrop-blur-sm">
               <p className="text-lg font-bold text-stone-900">Community voting</p>
               <p className="mt-2 text-sm leading-6 text-stone-700">
-                Rate today&apos;s uploads and push the best art to the top of the
-                daily leaderboard.
+                Rate today&apos;s uploads and push the best art to the top of the daily leaderboard.
               </p>
               <PrimaryLinkButton href={ROUTES.tinderArt} className="mt-5 w-full">
                 Open TinderArt
